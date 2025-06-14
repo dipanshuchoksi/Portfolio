@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme inlint {
+  --color-background: var(--bg);
+  --color-text: var(--text);
+  --color-background-accent: var(--bg-accent);
+  --color-text-accent: var(--text-accent);
+}
+
+:root {
+  --bg: #222222;
+  --bg-accent: #333333;
+  --text: #ffffff;
+  --text-accent: #cccccc;
+}
