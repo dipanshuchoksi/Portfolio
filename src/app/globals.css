@@ -7,6 +7,7 @@
   --color-text: var(--text);
   --color-text-accent: var(--text-accent);
   --color-border: var(--border);
+  --color-positive: var(--positive);
 }
 
 :root {
@@ -15,6 +16,7 @@
   --text: #ffffff;
   --text-accent: #cccccc;
   --border: #d1d5dc;
+  --positive: #1976d2;
 }
 
 /* Apply to every prose container */
