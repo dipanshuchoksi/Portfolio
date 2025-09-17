@@ -2,6 +2,7 @@ import Image from "next/image";
 import Navbar from "./components/Navbar";
 import "./globals.css";
 import { connectLinksArr } from "./const";
+import BackToTopButton from "./components/BackToTopButon";
 
 export default function RootLayout({
   children,
@@ -33,6 +34,7 @@ export default function RootLayout({
           </div>
           <p>Made With 💙. Thanks for your time.</p>
         </footer>
+        <BackToTopButton />
       </body>
     </html>
   );
