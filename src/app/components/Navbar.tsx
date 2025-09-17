@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <div className="bg-background text-text py-2 border-b border-border flex justify-between">
       <Link href="/">
-        <h2 className="text-2xl font-semibold text-text/80">{NavLogo}</h2>
+        <h2 className="text-2xl font-semibold text-text">{NavLogo}</h2>
       </Link>
       <div className="flex items-center gap-2">
         {navItems.map(({ title, urlPath }, index) => (
