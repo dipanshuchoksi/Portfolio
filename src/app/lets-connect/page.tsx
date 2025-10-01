@@ -12,8 +12,11 @@ function LetsConnectPage() {
       moreDetails: "",
     },
     onSubmit: async (values) => {
-      console.log(values);
-      const data = fetch("/api/email");
+      await fetch("/api/email", {
+        method: "POST",
+        body: JSON.stringify(values),
+        headers: { "Content-Type": "application/json" },
+      });
     },
   });
 
