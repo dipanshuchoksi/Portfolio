@@ -5,7 +5,7 @@ function ProjectItem() {
     <div className="rounded-2xl flex gap-10">
       <div className="w-fit">
         <Image
-          src="/netflixGpt.png"
+          src="/images/netflixGpt.png"
           alt="netflixgpt project image"
           width={500}
           height={200}

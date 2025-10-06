@@ -3,7 +3,7 @@ import { HeroCardInterface } from "../interface";
 
 function HeroCard({ data }: { data: HeroCardInterface }) {
   return (
-    <div className="border border-text/50 bg-background-accent flex flex-col gap-5 rounded-md p-5 grow-1">
+    <div className="border border-text/50 bg-background-accent flex flex-col gap-5 rounded-md p-5 grow-1 min-w-[300px]">
       <div className="text-2xl">
         <Image src={data.iconUrl} alt="Location icon" width={30} height={30} />
       </div>

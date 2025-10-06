@@ -18,7 +18,7 @@ function HeroSection() {
         <h1 className="text-2xl font-semibold mt-2">Dipanshu Choksi</h1>
         <p className="text-text-accent">Software Developer Engineer</p>
       </div>
-      <div className="flex justify-items-stretch gap-5 mt-10 w-full">
+      <div className="flex justify-items-stretch gap-5 mt-10 w-full overflow-y-scroll">
         {heroCardArr.map((card, index) => (
           <HeroCard data={card} key={index} />
         ))}
