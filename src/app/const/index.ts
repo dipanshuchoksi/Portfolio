@@ -9,17 +9,17 @@ export const NavLogo = "< Dipanshu />";
 
 export const heroCardArr = [
   {
-    iconUrl: "/locationIcon.svg",
+    iconUrl: "icon/locationIcon.svg",
     title: "Vadodara, Gujarat, India",
     subTitle: "Vadodara, Gujarat, India",
   },
   {
-    iconUrl: "/codeIcon.svg",
+    iconUrl: "icon/codeIcon.svg",
     title: "Software Developer Engineer",
     subTitle: "Software Developer Engineer",
   },
   {
-    iconUrl: "/peopleIcon.svg",
+    iconUrl: "icon/peopleIcon.svg",
     title: "500+ Connections",
     subTitle: "500+ Connections",
   },
@@ -85,13 +85,13 @@ export const skillArr = [
 
 export const educationSectionArr = [
   {
-    imgUrl: "/smsSchool.jpg",
+    imgUrl: "/images/smsSchool.jpg",
     name: "Sarwa Mangal School",
     year: "2020 - 2022",
     description: "Higher Secondary",
   },
   {
-    imgUrl: "/itmbuLogo.png",
+    imgUrl: "/images/itmbuLogo.png",
     name: "ITM(sls) Baroda University",
     year: "2022 - 2026",
     description: "Computer Science Engineering",
@@ -109,22 +109,22 @@ export const interestSectionArr = [
 export const connectLinksArr = [
   {
     title: "LinkedIn",
-    imgUrl: "/linkedinIcon.svg",
+    imgUrl: "/icon/linkedinIcon.svg",
     link: "https://www.linkedin.com/in/dipanshu-choksi/",
   },
   {
     title: "Github",
-    imgUrl: "/githubIcon.svg",
+    imgUrl: "/icon/githubIcon.svg",
     link: "https://github.com/thedc-004",
   },
   {
     title: "Instagram",
-    imgUrl: "/instagramIcon.svg",
+    imgUrl: "/icon/instagramIcon.svg",
     link: "https://www.instagram.com/thedc004/",
   },
   {
     title: "Gmail",
-    imgUrl: "/gmailIcon.svg",
+    imgUrl: "/icon/gmailIcon.svg",
     link: "https://mail.google.com/mail/?view=cm&to=kbdipanshuchoksi001088@gmail.com",
   },
 ];

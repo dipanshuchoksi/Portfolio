@@ -30,7 +30,7 @@ function BackToTopButon() {
       onClick={handleBackToTop}
     >
       <Image
-        src="./caret-top.svg"
+        src="/icon/caret-top.svg"
         alt="back to top arrow image"
         height={50}
         width={50}

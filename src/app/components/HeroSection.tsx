@@ -8,7 +8,7 @@ function HeroSection() {
       <div className="flex flex-col items-center">
         <div className="h-58 w-58 bg-background-accent rounded-full mt-16 overflow-hidden">
           <Image
-            src={"/myImage.jpeg"}
+            src={"/images/myImage.jpeg"}
             alt="My Image"
             height={250}
             width={250}

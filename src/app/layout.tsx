@@ -11,7 +11,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="sm:px-56 bg-background text-text">
+      <body className="lg:px-56 px-10 py-2 bg-background text-text">
         <Navbar />
         {children}
         <footer className="text-center w-full my-5">
