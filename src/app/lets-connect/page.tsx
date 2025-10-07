@@ -2,8 +2,23 @@
 
 import { useFormik } from "formik";
 import Image from "next/image";
+import { useState } from "react";
+import * as yup from "yup";
+
+const validationSchema = yup.object({
+  email: yup
+    .string()
+    .email("please enter valid email.")
+    .required("email input field is empty."),
+  name: yup.string().required("name input field is empty"),
+  subject: yup.string().required("subject input field is empty."),
+  moreDetails: yup.string().required("mode details field is empty."),
+});
 
 function LetsConnectPage() {
+  // tracks errors that may occur during the process of api call.
+  const [error, setError] = useState("");
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -11,12 +26,25 @@ function LetsConnectPage() {
       subject: "",
       moreDetails: "",
     },
+    validationSchema,
     onSubmit: async (values) => {
-      await fetch("/api/email", {
-        method: "POST",
-        body: JSON.stringify(values),
-        headers: { "Content-Type": "application/json" },
-      });
+      try {
+        const response = await fetch("/api/email", {
+          method: "POST",
+          body: JSON.stringify(values),
+          headers: { "Content-Type": "application/json" },
+        });
+        const data = await response.json();
+        if (!data.ok) {
+          throw new Error("failed to send message.");
+        }
+
+        formik.resetForm();
+      } catch (error) {
+        setError(
+          error instanceof Error ? error.message : "Failed to send message"
+        );
+      }
     },
   });
 
@@ -45,7 +73,13 @@ function LetsConnectPage() {
               id="email"
               onChange={formik.handleChange}
               value={formik.values.email}
+              onBlur={formik.handleBlur}
             />
+            {formik.touched.email && formik.errors.email ? (
+              <div className="bg-red-600 px-2 py-1 rounded w-fit mt-1">
+                {formik.errors.email}
+              </div>
+            ) : null}
           </div>
           <div className="flex-1 shrink-0 basis-[18rem]">
             <input
@@ -56,7 +90,13 @@ function LetsConnectPage() {
               id="name"
               onChange={formik.handleChange}
               value={formik.values.name}
+              onBlur={formik.handleBlur}
             />
+            {formik.touched.name && formik.errors.name ? (
+              <div className="bg-red-600 px-2 py-1 rounded w-fit mt-1">
+                {formik.errors.name}
+              </div>
+            ) : null}
           </div>
         </div>
         <div>
@@ -68,7 +108,13 @@ function LetsConnectPage() {
             id="subject"
             onChange={formik.handleChange}
             value={formik.values.subject}
+            onBlur={formik.handleBlur}
           />
+          {formik.touched.subject && formik.errors.subject ? (
+            <div className="bg-red-600 px-2 py-1 rounded w-fit mt-1">
+              {formik.errors.subject}
+            </div>
+          ) : null}
         </div>
         <div>
           <textarea
@@ -79,7 +125,13 @@ function LetsConnectPage() {
             onChange={formik.handleChange}
             value={formik.values.moreDetails}
             rows={10}
+            onBlur={formik.handleBlur}
           />
+          {formik.touched.moreDetails && formik.errors.moreDetails ? (
+            <div className="bg-red-600 px-2 py-1 rounded w-fit mt-1">
+              {formik.errors.moreDetails}
+            </div>
+          ) : null}
         </div>
         <button
           type="submit"
@@ -87,6 +139,11 @@ function LetsConnectPage() {
         >
           Submit
         </button>
+        {error.length == 0 ? null : (
+          <div className="bg-red-600 px-2 py-1 rounded w-fit mt-1">
+            Error : {error}
+          </div>
+        )}
       </form>
     </div>
   );

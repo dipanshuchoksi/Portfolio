@@ -2,14 +2,48 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
-const SMTP_USER = process.env.SMTP_USER || "fallback-email@example.com";
-const SMTP_PASSWORD = process.env.SMTP_PASSWORD || "fallback-password";
+const SMTP_USER = process.env.SMTP_USER;
+const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
 
 dotenv.config();
 
 export async function POST(req: Request) {
   try {
     const { email, name, subject, moreDetails } = await req.json();
+
+    // If environment variables are not detected.
+    if (!SMTP_PASSWORD || !SMTP_USER) {
+      return NextResponse.json(
+        { message: "internal server error." },
+        { status: 500 }
+      );
+    }
+
+    // ensure there are not empty fields.
+    if (!email || !name || !subject || !moreDetails) {
+      return NextResponse.json(
+        { message: "please fill all the input fields." },
+        { status: 400 }
+      );
+    }
+
+    // check email string's format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return NextResponse.json(
+        { message: "please send approapriate email." },
+        { status: 400 }
+      );
+    }
+
+    // check the limit of the input values.
+    if (name.length > 50 || subject.length > 75 || moreDetails.length > 200) {
+      return NextResponse.json(
+        { message: "input value exceeds max limit." },
+        { status: 400 }
+      );
+    }
+
     // 1. Create reusable transporter object using SMTP
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -69,21 +103,21 @@ export async function POST(req: Request) {
     const info = await transporter.sendMail({
       from: SMTP_USER,
       to: "dipanshuchoksi@gmail.com",
-      subject: "Let's connecct!",
+      subject: "Let's connect!",
       text: text,
       html: html,
     });
 
     console.log("email sent: %s", info.messageId);
     return NextResponse.json({
-      succeful: true,
+      successful: true,
       msg: "email sent successfully.",
     });
   } catch (err) {
     console.error(`Failed to send email`, err);
     return NextResponse.json(
       {
-        succeful: false,
+        successful: false,
         msg: "there was an error while sending email.",
       },
       { status: 500 }
