@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import getPost from "./getBlog";
 import { usePathname } from "next/navigation";
 import ReactMarkdown from "react-markdown";
+import { PostInterface } from "./const";
 
 function Post() {
-  const [post, setPost] = useState();
+  const [post, setPost] = useState<PostInterface>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [host, slug] = usePathname().split("/").slice(2);

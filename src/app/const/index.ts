@@ -19,9 +19,9 @@ export const heroCardArr = [
     subTitle: "Software Developer Engineer",
   },
   {
-    iconUrl: "/peopleIcon.svg",
-    title: "500+ Connections",
-    subTitle: "500+ Connections",
+    iconUrl: "/laptop.svg",
+    title: "Experience",
+    subTitle: "1 year",
   },
 ];
 

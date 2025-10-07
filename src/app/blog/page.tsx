@@ -3,23 +3,7 @@ import { useEffect, useState } from "react";
 import fetchPosts from "./getBlogs";
 import Image from "next/image";
 import Link from "next/link";
-
-type PostEdge = {
-  edges: {
-    node: {
-      brief: string;
-      title: string;
-      slug: string;
-      coverImage: string;
-      id: string;
-    };
-  }[];
-};
-
-type Series = {
-  seriesSlug: string;
-  posts: PostEdge[];
-};
+import { PostSeries } from "./[series]/[post]/const";
 
 const seriesArr = [
   "create-your-own",
@@ -28,7 +12,7 @@ const seriesArr = [
 ];
 
 function Blog() {
-  const [posts, setPosts] = useState<Series[]>([]);
+  const [posts, setPosts] = useState<PostSeries[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -49,6 +33,7 @@ function Blog() {
               })
           )
           .filter((dataElement) => dataElement.posts.edges.length);
+
         setPosts(allPosts);
       } catch (error) {
         if (error instanceof Error) {
