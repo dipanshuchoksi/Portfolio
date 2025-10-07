@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import Image from "next/image";
 import { useState } from "react";
 import * as yup from "yup";
+import Toast from "../components/toast";
 
 const validationSchema = yup.object({
   email: yup
@@ -18,6 +19,10 @@ const validationSchema = yup.object({
 function LetsConnectPage() {
   // tracks errors that may occur during the process of api call.
   const [error, setError] = useState("");
+  const [toast, setToast] = useState<{
+    msg: string;
+    type: "loading" | "idle" | "error" | "success";
+  }>({ msg: "", type: "idle" });
 
   const formik = useFormik({
     initialValues: {
@@ -29,21 +34,31 @@ function LetsConnectPage() {
     validationSchema,
     onSubmit: async (values) => {
       try {
+        setError("");
+        setToast({
+          msg: "Sending an email. Wait for confirmation.",
+          type: "loading",
+        });
         const response = await fetch("/api/email", {
           method: "POST",
           body: JSON.stringify(values),
           headers: { "Content-Type": "application/json" },
         });
         const data = await response.json();
-        if (!data.ok) {
+        if (!data.success) {
           throw new Error("failed to send message.");
         }
 
         formik.resetForm();
+        setToast({ msg: "Email sent successfully.", type: "success" });
       } catch (error) {
         setError(
           error instanceof Error ? error.message : "Failed to send message"
         );
+        setToast({
+          msg: "error while sending an email. please try again.",
+          type: "error",
+        });
       }
     },
   });
@@ -76,7 +91,7 @@ function LetsConnectPage() {
               onBlur={formik.handleBlur}
             />
             {formik.touched.email && formik.errors.email ? (
-              <div className="bg-red-600 px-2 py-1 rounded w-fit mt-1">
+              <div className="bg-red-600 px-2 py-1 rounded w-fit mt-1 text-sm">
                 {formik.errors.email}
               </div>
             ) : null}
@@ -93,7 +108,7 @@ function LetsConnectPage() {
               onBlur={formik.handleBlur}
             />
             {formik.touched.name && formik.errors.name ? (
-              <div className="bg-red-600 px-2 py-1 rounded w-fit mt-1">
+              <div className="bg-red-600 px-2 py-1 rounded w-fit mt-1 text-sm">
                 {formik.errors.name}
               </div>
             ) : null}
@@ -111,7 +126,7 @@ function LetsConnectPage() {
             onBlur={formik.handleBlur}
           />
           {formik.touched.subject && formik.errors.subject ? (
-            <div className="bg-red-600 px-2 py-1 rounded w-fit mt-1">
+            <div className="bg-red-600 px-2 py-1 rounded w-fit mt-1 text-sm">
               {formik.errors.subject}
             </div>
           ) : null}
@@ -128,7 +143,7 @@ function LetsConnectPage() {
             onBlur={formik.handleBlur}
           />
           {formik.touched.moreDetails && formik.errors.moreDetails ? (
-            <div className="bg-red-600 px-2 py-1 rounded w-fit mt-1">
+            <div className="bg-red-600 px-2 py-1 rounded w-fit mt-1 text-sm">
               {formik.errors.moreDetails}
             </div>
           ) : null}
@@ -145,6 +160,14 @@ function LetsConnectPage() {
           </div>
         )}
       </form>
+
+      {toast.type != "idle" && (
+        <Toast
+          msg={toast.msg}
+          onClose={() => setToast({ msg: "", type: "idle" })}
+          type={toast.type}
+        />
+      )}
     </div>
   );
 }

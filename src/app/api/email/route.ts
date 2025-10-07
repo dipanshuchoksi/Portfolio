@@ -1,11 +1,10 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+dotenv.config();
 
 const SMTP_USER = process.env.SMTP_USER;
 const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
-
-dotenv.config();
 
 export async function POST(req: Request) {
   try {
@@ -14,7 +13,7 @@ export async function POST(req: Request) {
     // If environment variables are not detected.
     if (!SMTP_PASSWORD || !SMTP_USER) {
       return NextResponse.json(
-        { message: "internal server error." },
+        { success: false, message: "internal server error." },
         { status: 500 }
       );
     }
@@ -22,7 +21,7 @@ export async function POST(req: Request) {
     // ensure there are not empty fields.
     if (!email || !name || !subject || !moreDetails) {
       return NextResponse.json(
-        { message: "please fill all the input fields." },
+        { success: false, message: "please fill all the input fields." },
         { status: 400 }
       );
     }
@@ -31,7 +30,7 @@ export async function POST(req: Request) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
-        { message: "please send approapriate email." },
+        { success: false, message: "please send approapriate email." },
         { status: 400 }
       );
     }
@@ -39,7 +38,7 @@ export async function POST(req: Request) {
     // check the limit of the input values.
     if (name.length > 50 || subject.length > 75 || moreDetails.length > 200) {
       return NextResponse.json(
-        { message: "input value exceeds max limit." },
+        { success: false, message: "input value exceeds max limit." },
         { status: 400 }
       );
     }
@@ -110,14 +109,14 @@ export async function POST(req: Request) {
 
     console.log("email sent: %s", info.messageId);
     return NextResponse.json({
-      successful: true,
+      success: true,
       msg: "email sent successfully.",
     });
   } catch (err) {
     console.error(`Failed to send email`, err);
     return NextResponse.json(
       {
-        successful: false,
+        success: false,
         msg: "there was an error while sending email.",
       },
       { status: 500 }
