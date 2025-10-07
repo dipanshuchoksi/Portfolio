@@ -33,10 +33,10 @@ function LetsConnectPage() {
       </div>
       <form
         onSubmit={formik.handleSubmit}
-        className="flex flex-col gap-3 w-1/2"
+        className="flex flex-col gap-3 max-w-[41rem] min-w-[20rem]"
       >
-        <div className="flex gap-3">
-          <div className="w-full">
+        <div className="flex gap-3 flex-wrap">
+          <div className="flex-1 shrink-0 basis-[18rem]">
             <input
               type="email"
               placeholder="enter your email."
@@ -47,7 +47,7 @@ function LetsConnectPage() {
               value={formik.values.email}
             />
           </div>
-          <div className="w-full">
+          <div className="flex-1 shrink-0 basis-[18rem]">
             <input
               type="text"
               placeholder="enter your name."
