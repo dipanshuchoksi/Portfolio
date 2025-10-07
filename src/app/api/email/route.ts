@@ -1,12 +1,29 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import dotenv from "dotenv";
-dotenv.config();
+import { rateLimiter } from "@/app/utils/rateLimiter";
 
 const SMTP_USER = process.env.SMTP_USER;
 const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
 
 export async function POST(req: Request) {
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    req.headers.get("x-real-ip") ||
+    "unknown";
+
+  const { success } = await rateLimiter.limit(ip);
+  if (!success) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: "too many requests.",
+      },
+      {
+        status: 429,
+      }
+    );
+  }
+
   try {
     const { email, name, subject, moreDetails } = await req.json();
 
@@ -99,7 +116,7 @@ export async function POST(req: Request) {
                     </body>
                   </html>`;
     // 4. Send mail
-    const info = await transporter.sendMail({
+    await transporter.sendMail({
       from: SMTP_USER,
       to: "dipanshuchoksi@gmail.com",
       subject: "Let's connect!",
@@ -107,13 +124,11 @@ export async function POST(req: Request) {
       html: html,
     });
 
-    console.log("email sent: %s", info.messageId);
     return NextResponse.json({
       success: true,
       msg: "email sent successfully.",
     });
-  } catch (err) {
-    console.error(`Failed to send email`, err);
+  } catch {
     return NextResponse.json(
       {
         success: false,

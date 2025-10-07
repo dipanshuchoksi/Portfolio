@@ -9,7 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "dotenv": "^17.2.3",
+    "@upstash/ratelimit": "^2.0.6",
+    "@upstash/redis": "^1.35.5",
     "formik": "^2.4.6",
     "next": "^15.5.2",
     "nodemailer": "^7.0.6",

@@ -13,7 +13,7 @@ const validationSchema = yup.object({
     .required("email input field is empty."),
   name: yup.string().required("name input field is empty"),
   subject: yup.string().required("subject input field is empty."),
-  moreDetails: yup.string().required("mode details field is empty."),
+  moreDetails: yup.string().required("more details field is empty."),
 });
 
 function LetsConnectPage() {
