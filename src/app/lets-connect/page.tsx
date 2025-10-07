@@ -67,11 +67,11 @@ function LetsConnectPage() {
     <div>
       <h2 className="text-2xl font-bold my-5">Let&apos;s Connect</h2>
       <div className="flex gap-3 mb-3">
-        <Image src="./email.svg" alt="email icon" width={20} height={20} />
+        <Image src="/email.svg" alt="email icon" width={20} height={20} />
         <p>dipanshuchoksi@gmail.com</p>
       </div>
       <div className="flex gap-3 mb-3">
-        <Image src="./phone.svg" alt="email icon" width={20} height={20} />
+        <Image src="/phone.svg" alt="email icon" width={20} height={20} />
         <p>+91 7069619944</p>
       </div>
       <form
