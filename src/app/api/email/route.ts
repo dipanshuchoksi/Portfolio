@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { rateLimiter } from "@/app/utils/rateLimiter";
+import { escapeHTML } from "@/app/utils/escapeHTML";
 
 const SMTP_USER = process.env.SMTP_USER;
 const SMTP_PASSWORD = process.env.SMTP_PASSWORD;
@@ -25,7 +26,11 @@ export async function POST(req: Request) {
   }
 
   try {
-    const { email, name, subject, moreDetails } = await req.json();
+    let { email, name, subject, moreDetails } = await req.json();
+    email = escapeHTML(email);
+    name = escapeHTML(name);
+    subject = escapeHTML(subject);
+    moreDetails = escapeHTML(moreDetails);
 
     // If environment variables are not detected.
     if (!SMTP_PASSWORD || !SMTP_USER) {
