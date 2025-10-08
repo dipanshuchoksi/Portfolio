@@ -13,3 +13,10 @@ export interface ProjectCardProps {
   githubUrl?: string;
   liveUrl?: string;
 }
+
+export interface ToastInterface {
+  msg: string;
+  duration?: number;
+  onClose: () => void;
+  type: "success" | "error" | "idle" | "loading";
+}
