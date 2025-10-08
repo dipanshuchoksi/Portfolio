@@ -4,6 +4,16 @@ export interface HeroCardInterface {
   iconUrl: string;
 }
 
+
+export interface ProjectCardProps {
+  title: string;
+  description: string;
+  image: string;
+  techStack: string[];
+  githubUrl?: string;
+  liveUrl?: string;
+}
+
 export interface ToastInterface {
   msg: string;
   duration?: number;

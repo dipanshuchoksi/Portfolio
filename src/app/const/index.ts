@@ -128,3 +128,15 @@ export const connectLinksArr = [
     link: "https://mail.google.com/mail/?view=cm&to=kbdipanshuchoksi001088@gmail.com",
   },
 ];
+
+export const projectsArray = [
+  {
+    description: `NetflixGPT is an AI-powered recommendation system that suggests movies based on the mood you describe. Simply tell it how you're feeling, and it curates a list of films that match your emotional vibe, ensuring the perfect watch for any moment.`,
+    githubUrl: "github.com/dipanshuchoksi/netflixgpt",
+    image: "/images/netflixGpt.png",
+    liveUrl: "http://localhost:3000",
+    techStack: ["Reactjs"],
+    title: "Netlflix GPT",
+    id: 1,
+  },
+];
