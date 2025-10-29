@@ -5,11 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PostSeries } from "./[series]/[post]/const";
 
-const seriesArr = [
-  "create-your-own",
-  "dsa-demystified",
-  "lets-learn-technologies",
-];
+const seriesArr = ["create-your-own", "dsa-demystified", "let-us-learn"];
 
 function Blog() {
   const [posts, setPosts] = useState<PostSeries[]>([]);
@@ -32,7 +28,7 @@ function Blog() {
                 posts: data?.data?.publication?.posts,
               })
           )
-          .filter((dataElement) => dataElement.posts.edges.length);
+          .filter((dataElement) => dataElement?.posts?.edges?.length);
 
         setPosts(allPosts);
       } catch (error) {
@@ -54,6 +50,13 @@ function Blog() {
   return (
     <div>
       <h1 className="text-2xl font-black text-text my-5"> My Blog</h1>
+
+      {/* to indicate that there's no post that has been publish and there's one that i am working on. */}
+      {posts.length == 0 ? (
+        <p>Post is being written. Thanks for your patience.</p>
+      ) : null}
+
+      {/* display all the posts that I have written */}
       <ul>
         {posts.map((postNode, idx) => {
           return (
