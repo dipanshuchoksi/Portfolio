@@ -1,11 +1,11 @@
-import fs from 'fs';
-import path from 'path';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import connectDB from '@/lib/connectDB';
 import ArchiveNote from '@/models/ArchiveNote';
 import NoteEditor from '@/components/NoteEditor';
 import { ArchiveItem } from '@/interfaces/archieve';
+import { s3Client, S3_BUCKET } from "@/lib/s3";
+import { GetObjectCommand } from "@aws-sdk/client-s3";
 
 export default async function AdminNoteEditPage({ params }: { params: { slug: string } }) {
     const { slug } = await params;
@@ -13,13 +13,17 @@ export default async function AdminNoteEditPage({ params }: { params: { slug: st
     await connectDB();
     const dbNote = await ArchiveNote.findOne({ slug }).lean();
 
-    const filePath = path.join(process.cwd(), 'content', 'archieve', `${slug}.md`);
-
-    if (!fs.existsSync(filePath)) {
+    const s3Key = `archieve/${slug}.md`;
+    let content = "";
+    try {
+        const response = await s3Client.send(new GetObjectCommand({
+            Bucket: S3_BUCKET,
+            Key: s3Key,
+        }));
+        content = await response.Body?.transformToString() || "";
+    } catch (e) {
         notFound();
     }
-
-    const content = fs.readFileSync(filePath, 'utf-8');
 
     const initialMetadata: Partial<ArchiveItem> | undefined = dbNote ? {
         title: dbNote.title,

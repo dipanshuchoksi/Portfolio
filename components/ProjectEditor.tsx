@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { saveProject, deleteProject } from "@/app/actions/project";
 import { Button } from "@/components/ui/button";
-import { pushImageToGitHub } from "@/app/actions/upload";
 import { useAuthStatus } from "@/hooks/useAuthStatus";
 import NotAuthorized from "./NotAuthorized";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { handleProjectDelete, handleProjectSave } from "@/lib/project-storage";
 
 const projectSchema = z.object({
     title: z.string().min(1, "Title is required"),
@@ -61,48 +60,11 @@ export default function ProjectEditor({ initialData, slug = "new-project" }: { i
     const onSubmit = async (data: ProjectFormValues) => {
         setLoading(true);
         try {
-            let finalImageUrl = image;
-
-            if (imageFile) {
-                const reader = new FileReader();
-                reader.readAsDataURL(imageFile);
-
-                await new Promise((resolve, reject) => {
-                    reader.onload = async () => {
-                        try {
-                            const base64Data = reader.result as string;
-                            const ext = imageFile.name.split('.').pop();
-                            const kebabTitle = data.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
-                            const filename = `${kebabTitle || 'project'}.${ext}`;
-                            const result = await pushImageToGitHub(filename, base64Data, 'public/projects');
-
-                            if (result.success && result.url) {
-                                finalImageUrl = result.url;
-                            } else {
-                                console.error("Upload failed:", result.error);
-                                alert(`Image upload failed: ${result.error}`);
-                            }
-                            resolve(null);
-                        } catch (err) {
-                            reject(err);
-                        }
-                    };
-                    reader.onerror = reject;
-                });
-            }
-
-            const payload = {
-                title: data.title,
-                description: data.description,
-                image: finalImageUrl as string,
-                tags: data.tags ? data.tags.split(",").map((t: string) => t.trim()).filter(Boolean) : [],
-                links: { github: data?.github ?? "", live: data?.live ?? "" },
-                status: data.status
-            };
-
-            const result = await saveProject(slug, payload);
+            const result = await handleProjectSave(slug, data, image, imageFile);
             if (result.success) {
                 router.push('/admin/projects');
+            } else {
+                throw new Error("Save failed");
             }
         } catch (error) {
             console.error("Failed to save project", error);
@@ -115,7 +77,7 @@ export default function ProjectEditor({ initialData, slug = "new-project" }: { i
         if (!confirm("Are you sure you want to delete this project?")) return;
         setLoading(true);
         try {
-            await deleteProject(slug);
+            await handleProjectDelete(slug);
             router.push('/admin/projects');
         } catch (error) {
             console.error("Failed to delete project", error);

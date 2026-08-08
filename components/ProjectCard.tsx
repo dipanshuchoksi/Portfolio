@@ -16,8 +16,8 @@ function ProjectCard({ project, index, canEdit = false }: { project: project; in
         style={{ animationDelay: `${(index % 3) * 150}ms`, animationFillMode: "both" }}
       >
         <div className="relative h-56 w-full shrink-0 overflow-hidden bg-secondary/50">
-          <Image
-            src={project.image || "/placeholder.svg"}
+          <img
+            src={project.image ? `/api/image?url=${project.image}` : "/placeholder.svg"}
             alt={project.title}
             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
             height={200}

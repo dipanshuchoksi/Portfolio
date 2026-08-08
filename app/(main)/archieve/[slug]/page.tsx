@@ -1,5 +1,3 @@
-import fs from "fs";
-import path from "path";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import connectDB from "@/lib/connectDB";
@@ -9,6 +7,8 @@ import { ArchiveItem } from "@/interfaces/archieve";
 import NoteActions from "@/components/NoteActions";
 import NotAuthorized from "@/components/NotAuthorized";
 import { getAuthStatus } from "@/app/actions/auth";
+import { s3Client, S3_BUCKET } from "@/lib/s3";
+import { GetObjectCommand } from "@aws-sdk/client-s3";
 
 export default async function NotePage({ params }: { params: { slug: string } }) {
     const { slug } = await params;
@@ -32,13 +32,17 @@ export default async function NotePage({ params }: { params: { slug: string } })
         );
     }
 
-    const filePath = path.join(process.cwd(), "content", "archieve", `${slug}.md`);
-
-    if (!fs.existsSync(filePath)) {
+    const s3Key = `archieve/${slug}.md`;
+    let content = "";
+    try {
+        const response = await s3Client.send(new GetObjectCommand({
+            Bucket: S3_BUCKET,
+            Key: s3Key,
+        }));
+        content = await response.Body?.transformToString() || "";
+    } catch (e) {
         notFound();
     }
-
-    const content = fs.readFileSync(filePath, "utf-8");
 
     const initialMetadata: Partial<ArchiveItem> | undefined = dbNote
         ? {
