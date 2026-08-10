@@ -59,7 +59,7 @@ export default function RootLayout({
         <Analytics />
         <div className="fixed z-50 bottom-6 right-6">
           <a
-            href="/documents/Resume_Dipanshu_Choksi.pdf"
+            href="/api/resume"
             download
             className="group relative flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-secondary/80 backdrop-blur-xl border border-white/10 text-sm font-medium text-foreground transition-all duration-500 hover:bg-primary/10 hover:border-primary/30 hover:scale-105 shadow-2xl overflow-hidden"
           >

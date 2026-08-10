@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ReactNode } from "react";
-import { Home, FolderGit2, Archive, LayoutDashboard } from "lucide-react";
+import { Home, FolderGit2, Archive, LayoutDashboard, File } from "lucide-react";
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
     return (
@@ -13,9 +13,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                 <Home className="h-4 w-4" />
                                 <span className="font-bold">Public Site</span>
                             </Link>
-                            
+
                             <div className="hidden md:flex h-6 w-px bg-border/60"></div>
-                            
+
                             <nav className="flex items-center space-x-6 text-sm font-medium text-muted-foreground">
                                 <Link href="/admin/dashboard" className="transition-colors hover:text-foreground flex items-center gap-2">
                                     <LayoutDashboard className="h-4 w-4" />
@@ -29,12 +29,16 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                     <Archive className="h-4 w-4" />
                                     Archive
                                 </Link>
+                                <Link href="/admin/resume" className="transition-colors hover:text-foreground flex items-center gap-2">
+                                    <File className="h-4 w-4" />
+                                    Resume
+                                </Link>
                             </nav>
                         </div>
                     </div>
                 </div>
             </header>
-            
+
             <main className="flex-1">
                 {children}
             </main>
