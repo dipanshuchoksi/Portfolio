@@ -35,7 +35,7 @@ export default async function ArchievePage(props: Props) {
     }));
 
     return (
-        <section className="py-20 flex flex-col items-center snap-start w-full">
+        <section className=" py-0 sm:py-20 flex flex-col items-center snap-start w-full">
             <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 w-full">
                 <div className="flex justify-between items-end mb-8 animate-in slide-in-from-bottom-8 fade-in duration-1000">
                     <div>

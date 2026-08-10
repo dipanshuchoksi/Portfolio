@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function ConnectPage() {
   return (
-    <div className="flex min-h-[70vh] flex-col items-center justify-center py-20 px-4 animate-in fade-in duration-700">
+    <div className="flex min-h-[70vh] flex-col items-center justify-center py-5 sm:py-20 px-4 animate-in fade-in duration-700">
       <div className="max-w-2xl text-center">
         <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-transparent bg-clip-text bg-linear-to-r from-primary to-accent">
           Connect With Me

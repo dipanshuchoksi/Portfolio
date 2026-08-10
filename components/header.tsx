@@ -107,10 +107,12 @@ export default function Header({ isLoggedIn = false }: { isLoggedIn?: boolean })
               </Link>
             </div>
 
-            <SettingsMenu isLoggedIn={isLoggedIn} />
+            <div className="hidden md:block">
+              <SettingsMenu isLoggedIn={isLoggedIn} />
+            </div>
 
             {/* Mobile Menu Button */}
-            <MobileNav isOpen={isDrawerOpen} onOpenChange={setIsDrawerOpen} navLinks={navLinks} />
+            <MobileNav isOpen={isDrawerOpen} onOpenChange={setIsDrawerOpen} navLinks={navLinks} isLoggedIn={isLoggedIn} />
           </div>
         </div>
       </div>

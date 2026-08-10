@@ -54,10 +54,10 @@ export default async function NotePage({ params }: { params: { slug: string } })
         : undefined;
 
     return (
-        <section className="py-20 flex flex-col items-center snap-start w-full min-h-screen">
+        <section className="sm:py-20 py-0 flex flex-col items-center snap-start w-full min-h-screen">
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 w-full">
-                <div className="flex justify-between items-center w-full mb-8">
-                    <Link href="/archieve" className="text-primary inline-block group">
+                <div className="flex justify-between items-center w-full mb-8 flex-wrap gap-5">
+                    <Link href="/archieve" className="text-primary inline-block group min-w-full">
                         <span className="nav-link-underline">&larr; Back to Archive</span>
                     </Link>
                     <div className="flex gap-4">

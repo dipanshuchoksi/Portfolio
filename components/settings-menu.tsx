@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Menu, Moon, Sun, LogIn, LogOut } from "lucide-react";
+import { Settings, Moon, Sun, LogIn, LogOut } from "lucide-react";
 import { useTheme } from "next-themes";
 import { login, logout } from "@/app/actions/auth";
 import { toast } from "sonner";
@@ -30,9 +30,9 @@ export function SettingsMenu({ isLoggedIn }: { isLoggedIn: boolean }) {
       <button
         onClick={() => setOpen(!open)}
         className="p-2 hover:bg-secondary rounded-lg transition-colors flex items-center justify-center"
-        aria-label="Menu"
+        aria-label="Settings"
       >
-        <Menu className="h-5 w-5" />
+        <Settings className="h-5 w-5" />
       </button>
 
       {open && (
