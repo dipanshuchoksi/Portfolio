@@ -8,7 +8,7 @@ import NotAuthorized from "./NotAuthorized";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { handleProjectDelete, handleProjectSave } from "@/lib/project-storage";
+import { deleteProject, createProject, updateProject } from "@/app/actions/project";
 
 const projectSchema = z.object({
     title: z.string().min(1, "Title is required"),
@@ -60,7 +60,25 @@ export default function ProjectEditor({ initialData, slug = "new-project" }: { i
     const onSubmit = async (data: ProjectFormValues) => {
         setLoading(true);
         try {
-            const result = await handleProjectSave(slug, data, image, imageFile);
+            const formData = new FormData();
+            formData.append("title", data.title);
+            formData.append("description", data.description);
+            formData.append("tags", data.tags || "");
+            formData.append("github", data.github || "");
+            formData.append("live", data.live || "");
+            formData.append("status", data.status);
+            formData.append("image", image);
+            if (imageFile) {
+                formData.append("imageFile", imageFile);
+            }
+
+            let result;
+            if (slug === 'new-project') {
+                result = await createProject(formData);
+            } else {
+                result = await updateProject(slug, formData);
+            }
+
             if (result.success) {
                 router.push('/admin/projects');
             } else {
@@ -77,7 +95,7 @@ export default function ProjectEditor({ initialData, slug = "new-project" }: { i
         if (!confirm("Are you sure you want to delete this project?")) return;
         setLoading(true);
         try {
-            await handleProjectDelete(slug);
+            await deleteProject(slug);
             router.push('/admin/projects');
         } catch (error) {
             console.error("Failed to delete project", error);

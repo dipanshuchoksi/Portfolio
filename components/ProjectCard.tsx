@@ -2,7 +2,6 @@
 
 import { project } from "@/interfaces";
 import { ExternalLink, Github, Edit, X } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 import ProjectEditor from "./ProjectEditor";
 
