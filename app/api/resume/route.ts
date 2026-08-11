@@ -14,7 +14,7 @@ export async function GET() {
         const response = await s3Client.send(command);
         const byteArray = await response.Body?.transformToByteArray();
 
-        return new NextResponse(byteArray, {
+        return new NextResponse(byteArray as any, {
             headers: {
                 "Content-Type": response.ContentType || "application/pdf",
                 "Content-Disposition": 'attachment; filename="Resume_Dipanshu_Choksi.pdf"',

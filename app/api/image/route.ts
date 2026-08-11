@@ -24,7 +24,7 @@ export async function GET(req: NextRequest) {
         const response = await s3Client.send(command);
         const byteArray = await response.Body?.transformToByteArray();
 
-        return new NextResponse(byteArray, {
+        return new NextResponse(byteArray as any, {
             headers: {
                 "Content-Type": response.ContentType || "application/octet-stream",
                 "Cache-Control": "public, max-age=31536000, immutable",
