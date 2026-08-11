@@ -7,7 +7,7 @@ export async function login() {
 }
 
 export async function logout() {
-    await signOut({ redirectTo: '/archieve' });
+    await signOut({ redirectTo: '/' });
 }
 
 export async function getAuthStatus() {

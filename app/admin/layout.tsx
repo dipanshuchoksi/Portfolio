@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { ReactNode } from "react";
-import { Home, FolderGit2, Archive, LayoutDashboard, File } from "lucide-react";
+import { Home, FolderGit2, Archive, LayoutDashboard, File, LogOut } from "lucide-react";
+import { logout } from "@/app/actions/auth";
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
+export default async function AdminLayout({ children }: { children: ReactNode }) {
     return (
         <div className="min-h-screen bg-background flex flex-col">
             <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -35,6 +36,16 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
                                 </Link>
                             </nav>
                         </div>
+
+                        <form action={logout}>
+                            <button
+                                type="submit"
+                                className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-destructive transition-colors"
+                            >
+                                <LogOut className="h-4 w-4" />
+                                <span className="hidden sm:inline">Logout</span>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </header>
