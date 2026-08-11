@@ -24,7 +24,7 @@ export default function Skills({ skillsContent }: { skillsContent: skillsSection
               className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card/20 backdrop-blur-md p-6 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10 hover:border-primary/50 animate-in slide-in-from-bottom-6"
               style={{ animationDelay: `${index * 100}ms`, animationFillMode: "both" }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-0 pointer-events-none"></div>
+              <div className="absolute inset-0 bg-linear-to-br from-primary/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-0 pointer-events-none"></div>
 
               <div className="relative z-10">
                 <h3 className="mb-5 text-xl font-bold group-hover:text-primary transition-colors flex items-center gap-2">

@@ -5,7 +5,7 @@ function ProjectTable({ projectsContent }: { projectsContent: projectSection }) 
   const topProjects = projectsContent.projects.slice(0, 3);
 
   return (
-    <table className="w-full text-left border-collapse min-w-[600px]">
+    <table className="w-full text-left border-collapse min-w-150">
       <thead>
         <tr className="border-b border-border/50 bg-secondary/30">
           <th className="py-4 px-6 font-semibold text-muted-foreground w-1/4">Name</th>

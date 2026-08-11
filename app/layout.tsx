@@ -6,6 +6,8 @@ import "../styles/globals.css";
 import { siteConfig } from "@/config";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
+import { Toaster } from "sonner";
+import { Download } from "lucide-react";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -25,15 +27,12 @@ export const metadata: Metadata = {
     "Tailwind CSS",
     "Tailwind",
     "Server Components",
-    "ShadCN",
     "JavaScript",
     "TypeScript",
     "JSX",
     "TSX",
     "JS",
     "Node.js",
-    "Blog",
-    "Technical Blog",
   ],
   openGraph: {
     description: siteConfig.description,
@@ -44,7 +43,6 @@ export const metadata: Metadata = {
   },
 };
 
-import { Clock } from "@/components/clock";
 
 export default function RootLayout({
   children,
@@ -56,12 +54,9 @@ export default function RootLayout({
       <body className="font-sans antialiased relative">
         <ThemeProvider attribute={"class"} defaultTheme="system" enableSystem>
           {children}
+          <Toaster richColors position="bottom-right" />
         </ThemeProvider>
         <Analytics />
-        <div className="fixed z-50 bottom-4 right-4 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary/95 text-primary">
-          <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-          <Clock />
-        </div>
       </body>
     </html>
   );

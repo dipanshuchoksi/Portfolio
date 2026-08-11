@@ -1,7 +1,7 @@
 "use client";
 
 import { projectSection } from "@/interfaces";
-import { ExternalLink, ArrowRight, Github } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import ProjectTable from "./projectTable";
 import ProjectCard from "./ProjectCard";
@@ -15,7 +15,7 @@ export default function Projects({ projectsContent }: { projectsContent: project
       className="border-b border-border py-20 flex items-center bg-background/50 relative overflow-hidden snap-start"
     >
       {/* Background decoration */}
-      <div className="absolute top-1/3 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
+      <div className="absolute top-1/3 left-0 w-150 h-150 bg-primary/5 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">

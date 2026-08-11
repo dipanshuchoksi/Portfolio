@@ -1,5 +1,5 @@
 import { achievementsSection } from "@/interfaces";
-import { ExternalLink } from "lucide-react";
+import AchievementCard from "./ui/AchievementCard";
 
 export default function Achievements({
   achievementsContent,
@@ -30,39 +30,14 @@ export default function Achievements({
             </h3>
             <div className="space-y-4">
               {achievementsContent.hackathons.map((item, idx) => (
-                <div
+                <AchievementCard
                   key={idx}
-                  className="rounded-2xl border border-border bg-card/40 backdrop-blur-md p-5 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/20 relative overflow-hidden group"
-                >
-                  <div className="absolute top-0 left-0 w-1.5 h-full bg-linear-to-b from-primary to-accent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <div>
-                      <span className="inline-block text-xs font-bold text-primary bg-primary/10 border border-primary/20 px-2.5 py-0.5 rounded-full mb-2">
-                        {item.title}
-                      </span>
-                      <h4 className="text-base font-semibold leading-snug">{item.event}</h4>
-                    </div>
-                    <span className="text-xs text-muted-foreground whitespace-nowrap mt-1">
-                      {item.year}
-                    </span>
-                  </div>
-
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                    {item.description}
-                  </p>
-
-                  {item.certificateUrl && (
-                    <a
-                      href={item.certificateUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
-                    >
-                      View Certificate <ExternalLink size={12} />
-                    </a>
-                  )}
-                </div>
+                  topLabel={item.title}
+                  heading={item.event}
+                  year={item.year}
+                  description={item.description}
+                  certificateUrl={item.certificateUrl}
+                />
               ))}
             </div>
           </div>
@@ -74,39 +49,14 @@ export default function Achievements({
             </h3>
             <div className="space-y-4">
               {achievementsContent.certifications.map((item, idx) => (
-                <div
+                <AchievementCard
                   key={idx}
-                  className="rounded-2xl border border-border bg-card/40 backdrop-blur-md p-5 transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 hover:border-primary/20 relative overflow-hidden group"
-                >
-                  <div className="absolute top-0 left-0 w-1.5 h-full bg-linear-to-b from-primary to-accent opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
-
-                  <div className="flex items-start justify-between gap-3 mb-2">
-                    <div>
-                      <span className="inline-block text-xs font-medium text-muted-foreground mb-2">
-                        {item.issuer}
-                      </span>
-                      <h4 className="text-base font-semibold leading-snug">{item.title}</h4>
-                    </div>
-                    <span className="text-xs text-muted-foreground whitespace-nowrap mt-1">
-                      {item.year}
-                    </span>
-                  </div>
-
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-3">
-                    {item.description}
-                  </p>
-
-                  {item.certificateUrl && (
-                    <a
-                      href={item.certificateUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
-                    >
-                      View Certificate <ExternalLink size={12} />
-                    </a>
-                  )}
-                </div>
+                  topLabel={item.issuer}
+                  heading={item.title}
+                  year={item.year}
+                  description={item.description}
+                  certificateUrl={item.certificateUrl}
+                />
               ))}
             </div>
           </div>

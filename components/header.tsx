@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileNav } from "@/components/mobile-nav";
 import { useState, useEffect } from "react";
 import { navLinks } from "@/consts";
@@ -10,8 +9,9 @@ import { NavigationMenuItem } from "@radix-ui/react-navigation-menu";
 import useIntersectionObserver from "@/hooks/useIntersectionOberver";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
+import { SettingsMenu } from "./settings-menu";
 
-export default function Header() {
+export default function Header({ isLoggedIn = false }: { isLoggedIn?: boolean }) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const { activeSection, setActiveSection } = useIntersectionObserver();
@@ -56,14 +56,18 @@ export default function Header() {
           {/* Desktop Navigation */}
           <NavigationMenu className="hidden md:flex">
             {navLinks.map((link, idx) => {
-              let isActive = link.label.toLowerCase() === activeSection;
+              let isActive = false;
 
-              if (
-                pathname !== "/" &&
-                pathname.startsWith("/blogs") &&
-                link.label.toLowerCase() === "blog"
-              ) {
-                isActive = true;
+              if (link.href.startsWith("/#") || link.href === "/") {
+                // Section links on the home page rely on IntersectionObserver
+                if (pathname === "/") {
+                  isActive = link.label.toLowerCase() === activeSection;
+                }
+              } else {
+                // Dedicated page links are active if the current pathname starts with their href
+                if (pathname !== "/" && pathname.startsWith(link.href)) {
+                  isActive = true;
+                }
               }
 
               return (
@@ -96,17 +100,19 @@ export default function Header() {
           <div className="flex items-center gap-2 sm:gap-4">
             <div className="hidden sm:block">
               <Link
-                href="/#contact"
+                href="/connect"
                 className="inline-flex h-9 items-center justify-center rounded-full bg-primary/10 px-4 py-2 text-sm font-bold text-primary transition-all hover:bg-primary hover:text-primary-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 hover:shadow-lg hover:shadow-primary/20"
               >
                 Let&apos;s connect
               </Link>
             </div>
 
-            <ThemeToggle />
+            <div className="hidden md:block">
+              <SettingsMenu isLoggedIn={isLoggedIn} />
+            </div>
 
             {/* Mobile Menu Button */}
-            <MobileNav isOpen={isDrawerOpen} onOpenChange={setIsDrawerOpen} navLinks={navLinks} />
+            <MobileNav isOpen={isDrawerOpen} onOpenChange={setIsDrawerOpen} navLinks={navLinks} isLoggedIn={isLoggedIn} />
           </div>
         </div>
       </div>

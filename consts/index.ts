@@ -1,12 +1,6 @@
 import { Mail, ExternalLink } from "lucide-react";
 import type { projectSection } from "../interfaces";
-export const blogsList = ["create-your-own", "let-us-learn", "dsa-demystified", "my-learnings-004"];
 
-export const tagsList = [
-  { name: "introduction" },
-  { name: "JavaScript" },
-  { name: "conversation" },
-];
 
 export const aboutContent = [
   `I’m a passionate full-stack developer with a strong focus on building scalable, user-centric web applications and solving complex backend challenges. I enjoy turning ideas into real products that are not only functional but also efficient, maintainable, and impactful. My journey in software development has been driven by curiosity, consistency, and a deep interest in understanding how systems work beneath the surface.
@@ -14,12 +8,13 @@ My expertise primarily lies in backend development with hands-on experience in t
 ];
 
 export const navLinks = [
+  { href: "/#hero", label: "Hero" },
   { href: "/#about", label: "About" },
   { href: "/#achievements", label: "Achievements" },
   { href: "/#projects", label: "Projects" },
   { href: "/#skills", label: "Skills" },
   { href: "/#education", label: "Education" },
-  { href: "/blogs", label: "Blog" },
+  { href: "/archieve", label: "Archive" },
 ];
 
 export const socialsArr = [
