@@ -69,7 +69,7 @@ export function MobileNav({ isOpen, onOpenChange, navLinks, isLoggedIn = false }
                 );
               })}
 
-              {isLoggedIn && (
+              {isLoggedIn && !pathname.startsWith("/admin") && (
                 <SheetClose asChild>
                   <Link
                     href="/admin/dashboard"
@@ -82,7 +82,7 @@ export function MobileNav({ isOpen, onOpenChange, navLinks, isLoggedIn = false }
                   </Link>
                 </SheetClose>
               )}
-              <SheetClose asChild>
+              {!pathname.startsWith("/admin") && <SheetClose asChild>
                 <Link
                   href="/connect"
                   className={`flex items-center rounded-lg px-4 py-3 text-base font-semibold transition-colors ${pathname.startsWith("/connect")
@@ -93,6 +93,7 @@ export function MobileNav({ isOpen, onOpenChange, navLinks, isLoggedIn = false }
                   Contact Me
                 </Link>
               </SheetClose>
+              }
             </nav>
 
             <div className="flex flex-col space-y-1 pt-6 mt-6 border-t border-border/50">
